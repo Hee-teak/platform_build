@@ -64,9 +64,9 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^cm_") ; then
-       CM_BUILD=$(echo -n $1 | sed -e 's/^cm_//g')
-       NAM_VARIANT=$(echo -n $1 | sed -e 's/^cm_//g')
+    if (echo -n $1 | grep -q -e "^thinkingbridge_") ; then
+       CM_BUILD=$(echo -n $1 | sed -e 's/^thinkingbridge_//g')
+       NAM_VARIANT=$(echo -n $1 | sed -e 's/^thinkingbridge_//g')
     elif (echo -n $1 | grep -q -e "htc_") ; then
        CM_BUILD=
        NAM_VARIANT=$(echo -n $1)
@@ -497,7 +497,7 @@ function breakfast()
     CM_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    for f in `/bin/ls vendor/cm/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/thinkingbridge/vendorsetup.sh 2> /dev/null`
         do
             echo "including $f"
             . $f
@@ -514,7 +514,7 @@ function breakfast()
             lunch $target
         else
             # This is probably just the CM model name
-            lunch cm_$target-userdebug
+            lunch thinkingbridge_$target-userdebug
         fi
     fi
     return $?
@@ -649,8 +649,8 @@ function tapas()
 function eat()
 {
     if [ "$OUT" ] ; then
-        MODVERSION=`sed -n -e'/ro\.cm\.version/s/.*=//p' $OUT/system/build.prop`
-        ZIPFILE=cm-$MODVERSION.zip
+        MODVERSION=`sed -n -e'/ro\.thinkingbridge\.version/s/.*=//p' $OUT/system/build.prop`
+        ZIPFILE=thinkingbridge-$MODVERSION.zip
         ZIPPATH=$OUT/$ZIPFILE
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
