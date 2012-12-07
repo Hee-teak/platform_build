@@ -1220,10 +1220,11 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 ifneq ($(TARGET_CUSTOM_RELEASETOOL),)
-        @echo "Running releasetool"
-        $(hide) $(TARGET_CUSTOM_RELEASETOOL)
+	@echo "Running custom releasetool..."
+	$(hide) OTAPACKAGE=$(PWD)/$(INTERNAL_OTA_PACKAGE_TARGET) $(TARGET_CUSTOM_RELEASETOOL)
 else
-	$(hide) ./vendor/thinkingbridge/tools/squisher
+	@echo "Running releasetool..."
+	$(hide) OTAPACKAGE=$(PWD)/$(INTERNAL_OTA_PACKAGE_TARGET) ./vendor/thinkingbridge/tools/squisher
 endif
 
 # -----------------------------------------------------------------
